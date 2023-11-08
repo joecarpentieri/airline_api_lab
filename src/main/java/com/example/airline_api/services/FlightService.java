@@ -3,9 +3,10 @@ package com.example.airline_api.services;
 import com.example.airline_api.models.Flight;
 import com.example.airline_api.models.Passenger;
 import com.example.airline_api.repositories.FlightRepository;
+import com.example.airline_api.repositories.PassengerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -14,6 +15,9 @@ public class FlightService {
 
     @Autowired
     FlightRepository flightRepository;
+
+    @Autowired
+    PassengerRepository passengerRepository;
 
 //    ADD DETAILS OF A NEW FLIGHT
     public void addFlightDetails(Flight flight){
@@ -36,9 +40,13 @@ public class FlightService {
     }
 
 //    ADD PASSENGER TO FLIGHT
-    public void addPassengerToFlight(Passenger passenger){
-        flightRepository.findById(displayFlightById(id));
+    @Transactional
+    public Passenger addPassengerToFlight(Long flightId, Long passengerId) {
+        Flight flight = flightRepository.findById(flightId).get();
+        Passenger passenger = passengerRepository.findById(passengerId).get();
         flight.addPassengers(passenger);
-    }
+        flightRepository.save(flight);
+        return passenger;
+   }
 
 }
