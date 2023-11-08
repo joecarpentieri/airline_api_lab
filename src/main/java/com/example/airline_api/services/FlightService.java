@@ -1,6 +1,7 @@
 package com.example.airline_api.services;
 
 import com.example.airline_api.models.Flight;
+import com.example.airline_api.models.Passenger;
 import com.example.airline_api.repositories.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,17 @@ public class FlightService {
 //    DISPLAY SPECIFIC FLIGHT'S DETAILS
     public Flight displayFlightById(Long flightId){
         return flightRepository.findById(flightId).get();
+    }
+
+//    CANCEL A FLIGHT BY ID
+    public void cancelFlight(Long id){
+        flightRepository.deleteById(id);
+    }
+
+//    ADD PASSENGER TO FLIGHT
+    public void addPassengerToFlight(Passenger passenger){
+        flightRepository.findById(displayFlightById(id));
+        flight.addPassengers(passenger);
     }
 
 }

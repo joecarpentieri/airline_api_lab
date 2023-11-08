@@ -93,4 +93,12 @@ public class Flight {
     public void setPassengers(List<Passenger> passengers) {
         this.passengers = passengers;
     }
+
+    public void addPassengers(Passenger passenger){
+        this.passengers.add(passenger);
+    }
+
+    public void removePassengers(Passenger passenger){
+        this.passengers.remove(passenger);
+    }
 }

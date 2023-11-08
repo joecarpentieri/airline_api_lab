@@ -1,7 +1,9 @@
 package com.example.airline_api.controllers;
 
 import com.example.airline_api.models.Flight;
+import com.example.airline_api.models.Passenger;
 import com.example.airline_api.services.FlightService;
+import com.example.airline_api.services.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,14 +39,17 @@ public class FlightController {
 
     // Book passenger on a flight
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<Flight> addPassengerToFlight(){
-        return null;
+    public ResponseEntity<Flight> addPassengerToFlight(@RequestParam Long id, @RequestBody Passenger passenger){
+        getFlightById(id);
+        flightService.addPassengerToFlight(passenger, flight);
+        return new ResponseEntity<>(flight, HttpStatus.OK);
     }
 
     // Cancel flight
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity cancelFlight(){
-        return null;
+    public ResponseEntity<Long> cancelFlight(@PathVariable(value = "id") Long id){
+        flightService.cancelFlight(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }
