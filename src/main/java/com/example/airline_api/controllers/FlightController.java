@@ -39,7 +39,7 @@ public class FlightController {
     // Book passenger on a flight
     @PatchMapping(value = "/{id}")
 //    Create a booking DTO - get passengerId by DTO
-    public ResponseEntity<Flight> addPassengerToFlight(@RequestParam Long id, @RequestBody BookingDTO bookingDTO){
+    public ResponseEntity<Flight> addPassengerToFlight(@PathVariable Long id, @RequestBody BookingDTO bookingDTO){
 //        Get passenger id using DTO - Get passenger Id via DTO
         Flight flight = flightService.displayFlightById(id);
         Long passengerId = bookingDTO.getPassengerId();
